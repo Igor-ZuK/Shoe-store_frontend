@@ -1,30 +1,20 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <Nav v-if="!['Login', 'Signup', 'Help'].includes($route.name)"/>
   <router-view/>
+  <Footer v-if="!['Login', 'Signup', 'Help'].includes($route.name)"/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style scoped>
+  @import "https://mdbootstrap.com/previews/ecommerce-demo/css/mdb-pro.min.css";
+  @import "assets/css/mdb.ecommerce.min.css";
+  @import "assets/css/style.css";
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
+<script>
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+
+export default {
+  components: {Footer, Nav}
+}
+</script>
