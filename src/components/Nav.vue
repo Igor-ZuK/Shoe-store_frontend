@@ -9,18 +9,16 @@
                     <li class="nav-item"><a class="nav-link" href="">Для детей</a></li>
                 </ul>
             </nav>
-            <a href="#">
+            <a href="/">
               <img class="header-logo" src="../assets/img/logo.svg" alt="Logo">
             </a>
             <ul class="nav nav-info">
                 <li class="nav-item"><a class="nav-link" href="">Оплата</a></li>
                 <li class="nav-item"><a class="nav-link" href="">Доставка</a></li>
             </ul>
-            <a href="" class="cart-link">
-                <button class="cart">
-                    <span class="cart-count">5</span>
-                </button>
-            </a>
+            <button class="cart" @click="goToCart">
+                <span class="cart-count">{{ cartTotalLength }}</span>
+            </button>
             <div class="toggle-menu" @click="changeMenu">
                 <div class="line line1"></div>
                 <div class="line line2"></div>
@@ -43,8 +41,35 @@
 <script>
 export default {
   name: "Nav",
+  data() {
+    return {
+      cart: {
+        items: []
+      }
+    }
+  },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+  },
+  mounted() {
+    this.cart = this.$store.state.cart
+  },
+  computed: {
+    cartTotalLength() {
+      let totalLength = 0
+
+      for(let i = 0; i < this.cart.items.length; ++i) {
+        totalLength += this.cart.items[i].quantity
+      }
+
+      return totalLength
+    }
+  },
   methods:  {
-    changeMenu: function () {
+    goToCart () {
+      window.location.href = 'cart'
+    },
+    changeMenu () {
       const navBar = document.querySelector('.nav-bar');
       navBar.classList.toggle('toggle');
     }
@@ -58,9 +83,12 @@ export default {
   text-decoration: none;
 }
 
-
 .toggle-menu {
     box-sizing: initial;
+}
+
+.cart {
+  cursor: pointer;
 }
 
 </style>

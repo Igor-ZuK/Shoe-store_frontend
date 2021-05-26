@@ -12,6 +12,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-6 col-lg-4">
             <div class="product">
               <div class="product-item">
@@ -73,7 +74,10 @@
   import Pagination from "@/components/Pagination";
   export default {
     name: "ProductList",
-    components: {Pagination}
+    components: {Pagination},
+    mounted() {
+      document.title = 'Products | The Loop'
+    }
   }
 </script>
 

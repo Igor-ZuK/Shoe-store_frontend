@@ -11,7 +11,10 @@
 
 <script>
 export default {
-  name: "Login"
+  name: "Login",
+  mounted() {
+    document.title = 'Login | The Loop'
+  }
 }
 </script>
 

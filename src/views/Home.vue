@@ -47,13 +47,18 @@
         <div class="product">
           <div class="product-item"
               v-for="product in latestProducts"
-              :key="product.id">
+              :key="product.id"
+              @click="goTo(product.get_absolute_url)"
+          >
             <img :src="product.image" alt="Product">
-            <p class="product-title">{{ product.title }}</p>
+            <p class="product-title">{{ product.fabricator }}<br>{{ product.title }}</p>
             <p class="product-price">₽ {{ product.price }}</p>
           </div>
         </div>
-        <a class="btn btn-center" href=""><span>Все модели</span><img src="../assets/img/arrow.svg" alt="Arrow"></a>
+        <a class="btn btn-center" href="/shoes/">
+          <span>Все модели</span>
+          <img src="../assets/img/arrow.svg" alt="Arrow">
+        </a>
       </div>
     </div>
   </div>
@@ -74,8 +79,13 @@ export default {
   },
   mounted() {
     this.getLatestProducts()
+
+    document.title = 'Home | The Loop'
   },
   methods: {
+    goTo(product_url) {
+      window.location.href = product_url
+    },
     getLatestProducts() {
       axios
       .get('/api/v1/')
@@ -91,4 +101,7 @@ export default {
 </script>
 
 <style scoped>
+  .product-item {
+    cursor: pointer;
+  }
 </style>

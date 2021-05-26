@@ -10,10 +10,12 @@
               <div class="row product-gallery mx-1">
                 <div class="col-12 mb-0">
                   <figure class="view overlay rounded z-depth-1 main-img" style="max-height: 450px;">
-                    <a href="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
-                       data-size="710x823">
-                      <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/15a.jpg"
-                           class="img-fluid z-depth-1" style="margin-top: -90px;" alt="Img verticla">
+                    <a :href="product.image"
+                       data-size="710x823"
+                       target="_blank"
+                    >
+                      <img :src="product.image"
+                           class="img-fluid z-depth-1"  alt="Img verticla">
                     </a>
                   </figure>
                 </div>
@@ -21,8 +23,8 @@
             </div>
           </div>
           <div class="col-md-6">
-            <h5>Blue denim shirt</h5>
-            <p class="mb-2 text-muted text-uppercase small">Shirts</p>
+            <h5>{{ product.title }}</h5>
+            <p class="mb-2 text-muted text-uppercase small">{{ product.fabricator }}</p>
             <ul class="rating">
               <li>
                 <i class="fas fa-star fa-sm text-primary"></i>
@@ -40,20 +42,18 @@
                 <i class="far fa-star fa-sm text-primary"></i>
               </li>
             </ul>
-            <p><span class="mr-1"><strong>$17.99</strong></span></p>
-            <p class="pt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit
-              error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. Distinctio,
-              officia quis dolore quos sapiente tempore alias.</p>
+            <p><span class="mr-1"><strong>{{ product.price }}</strong></span></p>
+            <p class="pt-1">{{ product.description }}</p>
             <div class="table-responsive">
               <table class="table table-sm table-borderless mb-0">
                 <tbody>
                 <tr>
-                  <th class="pl-0 w-25" scope="row"><strong>Model</strong></th>
-                  <td>Shirt 5407X</td>
+                  <th class="pl-0 w-25" scope="row"><strong>Article</strong></th>
+                  <td>{{ product.article }}</td>
                 </tr>
                 <tr>
-                  <th class="pl-0 w-25" scope="row"><strong>Color</strong></th>
-                  <td>Blue</td>
+                  <th class="pl-0 w-25" scope="row"><strong>Size</strong></th>
+                  <td>{{ product.size }}</td>
                 </tr>
                 <tr>
                   <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
@@ -72,10 +72,10 @@
                 <tr>
                   <td class="pl-0">
                     <div class="def-number-input number-input mb-0">
-                      <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                      <button @click="quantity > 1 ? quantity -= 1: quantity"
                               class="minus"></button>
-                      <input class="quantity" min="0" name="quantity" value="1" type="number">
-                      <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                      <input class="quantity" min="1" v-model="quantity" type="number">
+                      <button @click="quantity += 1"
                               class="plus"></button>
                     </div>
                   </td>
@@ -83,7 +83,10 @@
                 </tbody>
               </table>
             </div>
-            <button type="button" class="btn btn-yellow-200 btn-md mr-1 mb-2"><i
+            <button type="button"
+                    class="btn btn-yellow-200 btn-md mr-1 mb-2"
+                    @click="addToCart"
+            ><i
               class="fas fa-shopping-cart pr-2"></i>Add to
               cart
             </button>
@@ -111,7 +114,7 @@
           <div class="tab-pane fade show active" id="description" role="tabpanel"
                aria-labelledby="description-tab">
             <h5>Product Description</h5>
-            <p class="small text-muted text-uppercase mb-2">Shirts</p>
+            <p class="small text-muted text-uppercase mb-2">{{ product.fabricator }} {{ product.title }}</p>
             <ul class="rating">
               <li>
                 <i class="fas fa-star fa-sm text-primary"></i>
@@ -129,10 +132,8 @@
                 <i class="far fa-star fa-sm text-primary"></i>
               </li>
             </ul>
-            <h6>12.99 $</h6>
-            <p class="pt-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, sapiente illo. Sit
-              error voluptas repellat rerum quidem, soluta enim perferendis voluptates laboriosam. Distinctio,
-              officia quis dolore quos sapiente tempore alias.</p>
+            <h6>{{ product.price }}</h6>
+            <p class="pt-1">{{ product.description }}</p>
           </div>
           <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
             <h5>Additional Information</h5>
@@ -243,8 +244,62 @@
 </template>
 
 <script>
+import axios from "axios";
+import { toast } from 'bulma-toast'
+
 export default {
-  name: "ProductDetail"
+  name: "ProductDetail",
+  data() {
+    return {
+      product: {},
+      quantity: 1
+    }
+  },
+  mounted() {
+    this.getProduct()
+
+    document.title = 'Detail | The Loop'
+  },
+  methods: {
+    async getProduct() {
+      this.$store.commit('setIsLoading', true)
+      const product_slug = this.$route.params.shoes_slug
+
+      await axios
+        .get(`api/v1/shoes/${product_slug}`)
+        .then(response => {
+          this.product = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+      this.$store.commit('setIsLoading', false)
+    },
+    addToCart() {
+      if (isNaN(this.quantity || this.quantity < 1)) {
+        this.quantity = 1
+      } else {
+
+      }
+
+      const item = {
+        product: this.product,
+        quantity: this.quantity
+      }
+
+      this.$store.commit('addToCart', item)
+
+      toast({
+        message: 'The product was added to the cart',
+        type: 'is-success',
+        dismissible: true,
+        pauseOnHover: true,
+        duration: 2000,
+        position: 'bottom-right'
+      })
+    }
+  }
 }
 </script>
 
