@@ -45,7 +45,7 @@
     <div class="wrapper">
       <div class="footer-bottom">
         <p class="footer-bottom-copyright">Copyright © 2021. Все права защищены</p>
-        <a href="#" class="footer-bottom-link git-hub">Git Hub</a>
+        <a href="https://github.com/Igor-ZuK" target="_blank" class="footer-bottom-link git-hub">Git Hub</a>
         <a href="#" class="footer-bottom-link">Политика приватности</a>
       </div>
     </div>

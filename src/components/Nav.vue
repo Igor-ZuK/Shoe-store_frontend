@@ -67,7 +67,7 @@ export default {
   },
   methods:  {
     goToCart () {
-      window.location.href = 'cart'
+      window.location.href = '/cart'
     },
     changeMenu () {
       const navBar = document.querySelector('.nav-bar');

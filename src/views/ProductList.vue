@@ -2,61 +2,18 @@
   <div class="product-list">
     <main>
       <div class="container">
+        <div class="search__field">
+          <form action="/search" method="get" class="form-inline d-flex justify-content-center md-form form-sm active-brown active-brown-2 mt-2">
+            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" name="query"
+              aria-label="Search">
+            <button class="btn peach-gradient btn-rounded btn-sm my-0" type="submit">Search</button>
+          </form>
+        </div>
         <div class="row mb-md-2">
-          <div class="col-md-6 col-lg-4">
-            <div class="product">
-              <div class="product-item">
-                <img src="../assets/img/product02.png" alt="Product">
-                <p class="product-title">Футболка <br>черная</p>
-                <p class="product-price">₽ 10 000</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="product">
-              <div class="product-item">
-                <img src="../assets/img/product02.png" alt="Product">
-                <p class="product-title">Футболка <br>черная</p>
-                <p class="product-price">₽ 10 000</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="product">
-              <div class="product-item">
-                <img src="../assets/img/product02.png" alt="Product">
-                <p class="product-title">Футболка <br>черная</p>
-                <p class="product-price">₽ 10 000</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="product">
-              <div class="product-item">
-                <img src="../assets/img/product02.png" alt="Product">
-                <p class="product-title">Футболка <br>черная</p>
-                <p class="product-price">₽ 10 000</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="product">
-              <div class="product-item">
-                <img src="../assets/img/product02.png" alt="Product">
-                <p class="product-title">Футболка <br>черная</p>
-                <p class="product-price">₽ 10 000</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <div class="product">
-              <div class="product-item">
-                <img src="../assets/img/product02.png" alt="Product">
-                <p class="product-title">Футболка <br>черная</p>
-                <p class="product-price">₽ 10 000</p>
-              </div>
-            </div>
+          <div class="col-md-6 col-lg-4"
+              v-for="product in products"
+              :key="product.id">
+            <ProductBox :product="product" />
           </div>
         </div>
         <div class="row py-3">
@@ -71,16 +28,64 @@
 </template>
 
 <script>
+  import axios from "axios";
+  import ProductBox from "@/components/ProductBox";
   import Pagination from "@/components/Pagination";
+
+
   export default {
     name: "ProductList",
-    components: {Pagination},
+    components: {
+      Pagination,
+      ProductBox
+    },
+    data() {
+      return {
+        products: []
+      }
+    },
     mounted() {
+      this.getProducts()
+
       document.title = 'Products | The Loop'
+    },
+    methods: {
+      getProducts() {
+        axios
+          .get('/api/v1/shoes')
+          .then(response => {
+            this.products = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     }
   }
 </script>
 
 <style scoped>
   @import "../assets/css/bootstrap.min.css";
+
+  .container {
+    padding: 5em;
+  }
+
+  .search__field {
+    margin: 2em 0 5em;
+  }
+
+  .active-brown-2 input.form-control[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #ce93d8;
+    box-shadow: 0 1px 0 0 #ce93d8;
+  }
+
+  .active-brown input.form-control[type=text] {
+    border-bottom: 1px solid #D7B399;
+    box-shadow: 0 1px 0 0 #D7B399;
+  }
+
+  .btn-rounded {
+    border-radius: 20px;
+  }
 </style>

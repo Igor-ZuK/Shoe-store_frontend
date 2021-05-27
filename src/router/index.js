@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import Home from '../views/Home.vue'
+import Cart from '../views/Cart.vue'
 
 const routes = [
   {
@@ -8,12 +10,14 @@ const routes = [
     component: Home
   },
   {
+    path: '/search',
+    name: 'Search',
+    component: () => import('../views/Search')
+  },
+  {
     path: '/login',
     name: 'Login',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/about',
@@ -24,12 +28,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart
+  },
+  {
     path: '/shoes',
     name: 'ProductList',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/ProductList.vue')
+    component: () => import('../views/ProductList.vue')
   },
   {
     path: '/article/:article_slug',
@@ -46,7 +52,7 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/ProductDetail.vue')
-  },
+  }
 ]
 
 const router = createRouter({

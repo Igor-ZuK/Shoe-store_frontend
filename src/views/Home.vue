@@ -50,7 +50,7 @@
               :key="product.id"
               @click="goTo(product.get_absolute_url)"
           >
-            <img :src="product.image" alt="Product">
+            <img :src="product.get_thumbnail" alt="Product">
             <p class="product-title">{{ product.fabricator }}<br>{{ product.title }}</p>
             <p class="product-price">₽ {{ product.price }}</p>
           </div>
@@ -66,6 +66,7 @@
 
 <script>
 import axios from 'axios'
+import ProductBox from "@/components/ProductBox";
 
 export default {
   name: 'Home',
@@ -75,7 +76,7 @@ export default {
     }
   },
   components: {
-
+    ProductBox
   },
   mounted() {
     this.getLatestProducts()

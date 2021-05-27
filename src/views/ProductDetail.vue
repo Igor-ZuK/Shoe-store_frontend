@@ -10,11 +10,11 @@
               <div class="row product-gallery mx-1">
                 <div class="col-12 mb-0">
                   <figure class="view overlay rounded z-depth-1 main-img" style="max-height: 450px;">
-                    <a :href="product.image"
+                    <a :href="product.get_image"
                        data-size="710x823"
                        target="_blank"
                     >
-                      <img :src="product.image"
+                      <img :src="product.get_image"
                            class="img-fluid z-depth-1"  alt="Img verticla">
                     </a>
                   </figure>
@@ -257,8 +257,6 @@ export default {
   },
   mounted() {
     this.getProduct()
-
-    document.title = 'Detail | The Loop'
   },
   methods: {
     async getProduct() {
@@ -269,6 +267,8 @@ export default {
         .get(`api/v1/shoes/${product_slug}`)
         .then(response => {
           this.product = response.data
+
+          document.title = this.product.title + ' | The Loop'
         })
         .catch(error => {
           console.log(error)
@@ -279,8 +279,6 @@ export default {
     addToCart() {
       if (isNaN(this.quantity || this.quantity < 1)) {
         this.quantity = 1
-      } else {
-
       }
 
       const item = {
