@@ -9,7 +9,7 @@
             <h1 class="sale-title">СКИДКИ ДО 90%</h1>
             <a class="btn" href="">Смотреть модели</a>
           </div>
-          <div class="main-item box">
+          <div class="main-item box-item">
             <div class="box-price">
               <strike class="box-price-old">9 900 ₽</strike>
               <p class="box-price-new">1 900 ₽</p>

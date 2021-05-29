@@ -84,23 +84,25 @@ export default {
 </script>
 
 <style lang="scss">
-  .page-cart {
-    padding: 2em;
-    font-size: 16px;
-  }
-  .title {
-    text-align: center;
-  }
-  .summary {
-    margin-top: 10em;
+.page-cart {
+  padding: 2em;
+  font-size: 16px;
+}
 
-  }
+.title {
+  text-align: center;
+}
 
-  .cart__title {
-    margin: 2em 0 5em;
-  }
+.summary {
+  margin-top: 10em;
 
-  .cart_empty {
-    font-size: 26px;
-  }
+}
+
+.cart__title {
+  margin: 2em 0 5em;
+}
+
+.cart_empty {
+  font-size: 26px;
+}
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <Nav v-if="!['Login', 'Signup', 'Help'].includes($route.name)"/>
+  <Nav v-if="!['Login', 'SignUp', 'Help'].includes($route.name)" />
   <div class="text-center">
     <div role="status" :class="{'spinner-border': $store.state.isLoading}">
     </div>
   </div>
-  <router-view/>
-  <Footer v-if="!['Login', 'Signup', 'Help'].includes($route.name)"/>
+  <router-view />
+  <Footer v-if="!['Login', 'SignUp', 'Help'].includes($route.name)" />
 </template>
 
 <style scoped>
@@ -20,8 +20,20 @@
 <script>
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default {
-  components: {Footer, Nav}
+  components: {Footer, Nav},
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+
+    const token = this.$store.state.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = "Token " + token
+    } else {
+      axios.defaults.headers.common['Authorization'] = ""
+    }
+  },
 }
 </script>
