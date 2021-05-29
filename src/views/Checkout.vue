@@ -22,9 +22,9 @@
             :key="item.product.id"
           >
             <td>{{ item.product.title }}</td>
-            <td>{{ item.product.price }}</td>
+            <td>${{ item.product.price }}</td>
             <td>{{ item.quantity }}</td>
-            <td>BYN{{ getItemTotal(item).toFixed(2) }}</td>
+            <td>${{ getItemTotal(item).toFixed(2) }}</td>
           </tr>
           </tbody>
 
@@ -32,7 +32,7 @@
           <tr>
             <td colspan="2">Итог</td>
             <td>{{ cartTotalLength }}</td>
-            <td>BYN{{ cartTotalPrice.toFixed(2) }}</td>
+            <td>${{ cartTotalPrice.toFixed(2) }}</td>
           </tr>
           </tfoot>
         </table>
@@ -120,6 +120,7 @@ export default {
         items: []
       },
       card: {},
+      stripe: '',
       first_name: '',
       last_name: '',
       email: '',
@@ -133,6 +134,16 @@ export default {
     document.title = 'Checkout | The Loop'
 
     this.cart = this.$store.state.cart
+
+    if (this.cartTotalLength > 0) {
+      this.stripe = Stripe(
+        'pk_test_51IwSaTFh9IbUGqWSbYJnX8yHFV8wQjyzKISFxvqZUhZWYfsZoLWZnHcGjCaZut59Z1PdQmtEDxJUyOYbiGTQTfAE007dE9ymDr'
+      )
+      const elements = this.stripe.elements()
+      this.card = elements.create('card', { hidePostalCode: true })
+
+      this.card.mount('#card-element')
+    }
   },
   methods: {
     getItemTotal(item) {
@@ -164,6 +175,62 @@ export default {
       if (this.place === '') {
         this.errors.push('Поле Город пропущено')
       }
+
+      if (!this.errors.length) {
+        this.$store.commit('setIsLoading', true)
+
+        this.stripe.createToken(this.card).then(result => {
+          if (result.error) {
+            this.$store.commit('setIsLoading', false)
+
+            this.errors.push('Упс...Что-то пошло не так с оплатой. Попробуйте ещё раз.')
+
+            console.log(result.error.message())
+          } else {
+            this.stripeTokenHandler(result.token)
+          }
+        })
+      }
+    },
+    async stripeTokenHandler(token) {
+      const items = []
+
+      for (let i = 0; i < this.cart.items.length; ++i) {
+        const item = this.cart.items[i]
+        const obj = {
+          product: item.product.id,
+          quantity: item.quantity,
+          price: item.product.price * item.quantity
+        }
+
+        items.push(obj)
+      }
+
+      const data = {
+        'first_name': this.first_name,
+        'last_name': this.last_name,
+        'email': this.email,
+        'address': this.address,
+        'place': this.place,
+        'phone': this.phone,
+        'items': items,
+        'stripe_token': token.id
+      }
+
+
+      await axios
+          .post('/api/v1/checkout', data)
+          .then(response => {
+            this.$store.commit('clearCart')
+            this.$router.push('/cart/success')
+          })
+          .catch(error => {
+            this.errors.push('Что-то пошло не по плану. Попробуйте пожалуйста ещё раз')
+
+            console.log(error)
+          })
+
+          this.$store.commit('setIsLoading', false)
     }
   },
   computed: {

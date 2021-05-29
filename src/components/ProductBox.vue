@@ -3,7 +3,7 @@
     <div class="product-item" @click="goTo(product.get_absolute_url)">
       <img :src="product.get_thumbnail" alt="Product">
       <p class="product-title">{{ product.fabricator }}<br>{{ product.title }}</p>
-      <p class="product-price">₽ {{ product.price }}</p>
+      <p class="product-price">$ {{ product.price }}</p>
     </div>
   </div>
 </template>

@@ -9,7 +9,9 @@ import ProductDetail from '../views/ProductDetail'
 import Search from "@/views/Search"
 import MyAccount from "@/views/MyAccount"
 import Checkout from "@/views/Checkout"
-import Success from "@/views/Success";
+import Success from "@/views/Success"
+import Payment from "@/views/Payment"
+import Delivery from "@/views/Delivery";
 
 
 const routes = [
@@ -58,6 +60,16 @@ const routes = [
     meta: {
       requireLogin: true
     }
+  },
+  {
+    path: '/payment',
+    name: 'Payment',
+    component: Payment
+  },
+  {
+    path: '/delivery',
+    name: 'Delivery',
+    component: Delivery
   },
   {
     path: '/about',

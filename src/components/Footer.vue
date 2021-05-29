@@ -11,10 +11,10 @@
           <div class="footer-nav">
             <ul class="footer-list">
               <li class="footer-list-item footer-list-title">Основные ссылки</li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">О компании</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Каталог</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Доставка</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Оплата</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/about">О компании</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/shoes">Каталог</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/delivery">Доставка</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/payment">Оплата</a></li>
             </ul>
             <ul class="footer-list">
               <li class="footer-list-item footer-list-title">Категории</li>

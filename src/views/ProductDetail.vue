@@ -42,7 +42,7 @@
                   <i class="far fa-star fa-sm text-primary"></i>
                 </li>
               </ul>
-              <p><span class="mr-1"><strong>{{ product.price }}</strong></span></p>
+              <p><span class="mr-1"><strong>${{ product.price }}</strong></span></p>
               <p class="pt-1">{{ product.description }}</p>
               <div class="table-responsive">
                 <table class="table table-sm table-borderless mb-0">
@@ -132,7 +132,7 @@
                   <i class="far fa-star fa-sm text-primary"></i>
                 </li>
               </ul>
-              <h6>{{ product.price }}</h6>
+              <h6>${{ product.price }}</h6>
               <p class="pt-1">{{ product.description }}</p>
             </div>
             <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">

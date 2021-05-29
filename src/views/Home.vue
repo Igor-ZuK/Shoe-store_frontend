@@ -7,12 +7,12 @@
           <div class="main-item sale">
             <p class="sale-description">Зимняя распродажа</p>
             <h1 class="sale-title">СКИДКИ ДО 90%</h1>
-            <a class="btn" href="">Смотреть модели</a>
+            <a class="btn" href="/shoes">Смотреть модели</a>
           </div>
           <div class="main-item box-item">
             <div class="box-price">
-              <strike class="box-price-old">9 900 ₽</strike>
-              <p class="box-price-new">1 900 ₽</p>
+              <strike class="box-price-old">250 $</strike>
+              <p class="box-price-new">30 $</p>
             </div>
             <img class="box-image" src="../assets/img/shoes.png" alt="Shoes">
           </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="page page-dark notice">
       <div class="wrapper">
-        <h1 class="notice-title"><span>Бесплатная доставка</span> от 3000₽</h1>
+        <h1 class="notice-title"><span>Бесплатная доставка</span> от 99 $</h1>
         <p class="notice-description">Сделайте заказ и получите подарок!</p>
       </div>
     </div>
@@ -52,7 +52,7 @@
           >
             <img :src="product.get_thumbnail" alt="Product">
             <p class="product-title">{{ product.fabricator }}<br>{{ product.title }}</p>
-            <p class="product-price">₽ {{ product.price }}</p>
+            <p class="product-price">$ {{ product.price }}</p>
           </div>
         </div>
         <a class="btn btn-center" href="/shoes/">

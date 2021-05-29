@@ -13,8 +13,8 @@
               <img class="header-logo" src="../assets/img/logo.svg" alt="Logo">
             </a>
             <ul class="nav nav-info">
-                <li class="nav-item"><a class="nav-link" href="">Оплата</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Доставка</a></li>
+                <li class="nav-item"><a class="nav-link" href="/payment">Оплата</a></li>
+                <li class="nav-item"><a class="nav-link" href="/delivery">Доставка</a></li>
             </ul>
             <button class="cart" @click="goTo('/cart')">
                 <span class="cart-count">{{ cartTotalLength }}</span>

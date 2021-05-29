@@ -8,13 +8,13 @@
       <div class="column is-12 box">
         <table class="table is-fullwidth" v-if="cartTotalLength">
           <thead>
-          <tr>
-            <th>Продукт</th>
-            <th>Цена</th>
-            <th>Кол-во</th>
-            <th>Итог</th>
-            <th></th>
-          </tr>
+            <tr>
+              <th>Продукт</th>
+              <th>Цена</th>
+              <th>Кол-во</th>
+              <th>Итог</th>
+              <th></th>
+            </tr>
           </thead>
 
           <tbody>
@@ -32,7 +32,7 @@
       <div class="column is-12 box summary">
         <h2 class="subtitle">Общая цена</h2>
 
-        <strong>BYN {{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+        <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
 
         <hr>
 
