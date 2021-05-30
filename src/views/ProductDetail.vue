@@ -25,23 +25,7 @@
             <div class="col-md-6">
               <h5>{{ product.title }}</h5>
               <p class="mb-2 text-muted text-uppercase small">{{ product.fabricator }}</p>
-              <ul class="rating">
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="far fa-star fa-sm text-primary"></i>
-                </li>
-              </ul>
+              <Rating :rating_star="product.middle_star"/>
               <p><span class="mr-1"><strong>${{ product.price }}</strong></span></p>
               <p class="pt-1">{{ product.description }}</p>
               <div class="table-responsive">
@@ -101,137 +85,113 @@
                  aria-controls="description" aria-selected="true">Description</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info"
-                 aria-selected="false">Information</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab"
                  aria-controls="reviews"
                  aria-selected="false">Reviews (1)</a>
             </li>
           </ul>
           <div class="tab-content" id="advancedTabContent">
-            <div class="tab-pane fade show active" id="description" role="tabpanel"
+            <div class="tab-pane fade" id="description" role="tabpanel"
                  aria-labelledby="description-tab">
               <h5>Product Description</h5>
               <p class="small text-muted text-uppercase mb-2">{{ product.fabricator }} {{ product.title }}</p>
-              <ul class="rating">
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="fas fa-star fa-sm text-primary"></i>
-                </li>
-                <li>
-                  <i class="far fa-star fa-sm text-primary"></i>
-                </li>
-              </ul>
+              <Rating :rating_star="product.middle_star"/>
               <h6>${{ product.price }}</h6>
               <p class="pt-1">{{ product.description }}</p>
             </div>
-            <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
-              <h5>Additional Information</h5>
-              <table class="table table-striped table-bordered mt-3">
-                <thead>
-                <tr>
-                  <th scope="row" class="w-150 dark-grey-text h6">Weight</th>
-                  <td><em>0.3 kg</em></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <th scope="row" class="w-150 dark-grey-text h6">Dimensions</th>
-                  <td><em>50 × 60 cm</em></td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-              <h5><span>1</span> review for <span>Fantasy T-shirt</span></h5>
-              <div class="media mt-3 mb-4">
-                <img class="d-flex mr-3 z-depth-1"
-                     src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
-                     width="62" alt="Generic placeholder image">
-                <div class="media-body">
-                  <div class="d-flex justify-content-between">
-                    <p class="mt-1 mb-2">
-                      <strong>Marthasteward </strong>
-                      <span>– </span><span>January 28, 2020</span>
-                    </p>
-                    <ul class="rating mb-0">
-                      <li>
-                        <i class="fas fa-star fa-sm text-primary"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-star fa-sm text-primary"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-star fa-sm text-primary"></i>
-                      </li>
-                      <li>
-                        <i class="fas fa-star fa-sm text-primary"></i>
-                      </li>
-                      <li>
-                        <i class="far fa-star fa-sm text-primary"></i>
-                      </li>
-                    </ul>
+
+            <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+              <h5><span>{{ product.total_comments }}</span> review for <span>{{ product.title }}</span></h5>
+              <template v-if="product.total_comments">
+                  <div class="media mt-3 mb-4" v-for="comment in comments" :key="comment.id">
+                    <img class="d-flex mr-3 z-depth-1"
+                         src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
+                         width="62" alt="Generic placeholder image">
+                    <div class="media-body">
+                      <div class="d-flex justify-content-between">
+                        <p class="mt-1 mb-2">
+                          <strong>{{ comment.author_name }} </strong>
+                          <span>– </span><span>{{ getDate(comment.pub_date) }}</span>
+                        </p>
+                        <Rating :rating_star="comment.rating_star"/>
+                      </div>
+                      <p class="mb-0">{{ comment.content }}</p>
+                      <i class="fas fa-reply" @click="reviewComment(comment.author_name, comment.id)"></i>
+                      <div class="media mt-4 mb-4 ml-3" v-for="review in comment.children" :key="review.id">
+                        <img class="d-flex mr-3 z-depth-1"
+                             src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
+                             width="62" alt="Generic placeholder image">
+                        <div class="media-body">
+                          <div class="d-flex justify-content-between">
+                            <p class="mt-1 mb-2">
+                              <strong>{{ review.author_name }} </strong>
+                              <span>– </span><span>{{ getDate(review.pub_date) }}</span>
+                            </p>
+                            <ul class="rating mb-0">
+                              <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                              </li>
+                              <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                              </li>
+                              <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                              </li>
+                              <li>
+                                <i class="fas fa-star fa-sm text-primary"></i>
+                              </li>
+                              <li>
+                                <i class="far fa-star fa-sm text-primary"></i>
+                              </li>
+                            </ul>
+                          </div>
+                          <p class="mb-0">{{ review.content }}</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <p class="mb-0">Nice one, love it!</p>
-                </div>
-              </div>
+                </template>
               <hr>
               <h5 class="mt-4">Add a review</h5>
-              <p>Your email address will not be published.</p>
+              <div class="notification is-danger error-block" v-if="errors.length">
+                <p v-for="error in errors" :key="error">{{ error }}</p>
+              </div>
               <div class="my-3">
+<!--                <div class="row">-->
+<!--                  <div class="col-md-6">-->
+<!--                    <star-rating v-model="rating" :increment="1" text-class="custom-text"></star-rating>-->
+<!--                  </div>-->
+<!--                </div>-->
                 <ul class="rating mb-0">
-                  <li>
-                    <a href="#">
-                      <i class="fas fa-star fa-sm text-primary"></i>
-                    </a>
+                  <li v-for="(star, index) in 5" :key="index">
+                    <i class="fa-star fa-sm text-primary"
+                       @mouseover="isHover = true"
+                       @mouseleave="isHover = false"
+                       :class="{far: isHover, fas: !isHover}"></i>
                   </li>
-                  <li>
-                    <a href="#">
-                      <i class="fas fa-star fa-sm text-primary"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fas fa-star fa-sm text-primary"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fas fa-star fa-sm text-primary"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="far fa-star fa-sm text-primary"></i>
-                    </a>
-                  </li>
+<!--                  <li>-->
+<!--                    <a href="#">-->
+<!--                      <i class="fas fa-star fa-sm text-primary"></i>-->
+<!--                    </a>-->
+<!--                  </li>-->
+<!--                  <li>-->
+<!--                    <a href="#">-->
+<!--                      <i class="far fa-star fa-sm text-primary"></i>-->
+<!--                    </a>-->
+<!--                  </li>-->
                 </ul>
               </div>
               <div>
                 <div class="md-form md-outline">
-                  <textarea id="form76" class="md-textarea form-control pr-6" rows="4"></textarea>
-                  <label for="form76">Your review</label>
-                </div>
-                <div class="md-form md-outline">
-                  <input type="text" id="form75" class="form-control pr-6">
-                  <label for="form75">Name</label>
-                </div>
-                <div class="md-form md-outline">
-                  <input type="email" id="form77" class="form-control pr-6">
-                  <label for="form77">Email</label>
+                  <textarea id="form76"
+                            class="md-textarea form-control pr-6"
+                            rows="4"
+                            v-model="commentText"
+                            placeholder="Your review"
+                  ></textarea>
                 </div>
                 <div class="text-right pb-2">
-                  <button type="button" class="btn btn-primary">Add a review</button>
+                  <button type="button" class="btn btn-primary" @click="sendReview">Add a review</button>
                 </div>
               </div>
             </div>
@@ -246,13 +206,25 @@
 <script>
 import axios from "axios";
 import {toast} from 'bulma-toast'
+import Rating from "@/components/Rating";
+// import StarRating from 'vue-star-rating'
 
 export default {
   name: "ProductDetail",
+  components: {
+    Rating,
+
+  },
   data() {
     return {
       product: {},
-      quantity: 1
+      quantity: 1,
+      comments: {},
+      commentText: '',
+      parent: null,
+      rating: 0,
+      errors: [],
+      isHover: false
     }
   },
   mounted() {
@@ -267,6 +239,7 @@ export default {
         .get(`api/v1/shoes/${product_slug}`)
         .then(response => {
           this.product = response.data
+          this.comments = this.product.comments
 
           document.title = this.product.title + ' | The Loop'
         })
@@ -296,13 +269,75 @@ export default {
         duration: 2000,
         position: 'bottom-right'
       })
+    },
+    async sendReview() {
+      this.errors = []
+
+      if (this.commentText === '') {
+        this.errors.push('Ваш комментарий пуст!')
+      }
+
+      if (!this.errors.length) {
+
+        const data = {
+          "content": this.commentText,
+          "shoes_id": this.product.id,
+          "parent": this.parent
+        }
+
+        this.$store.commit('setIsLoading', true)
+        await axios.post('/api/v1/comment/', data)
+          .then(response => {
+            toast({
+              message: 'Комментарий был успешно добавлен',
+              type: 'is-success',
+              dismissible: true,
+              pauseOnHover: true,
+              duration: 2000,
+              position: 'bottom-right'
+            })
+
+            window.location.reload()
+          })
+          .catch(error => {
+            this.errors.push("Something went wrong...Pls try again.")
+
+            console.log(error)
+          })
+
+        this.$store.commit('setIsLoading', false)
+      }
+
+      this.parent = null
+    },
+    getDate(dateStr) {
+      const date = new Date(dateStr)
+
+      return `
+        ${date.toLocaleString('defaults', {month: 'long'})} ${date.getDate()}, ${date.getFullYear()}`
+    },
+    reviewComment(author_name, author_id) {
+      this.commentText = author_name + ', '
+      this.parent = author_id
+    },
+    setRating() {
+
     }
-  }
+  },
 }
+
 </script>
 
 <style scoped>
-  main {
-    padding-top: 10%;
-  }
+main {
+  padding-top: 10%;
+}
+
+.error-block {
+  color: #4a4a4a;
+  font-weight: 500;
+  font-size: 17px;
+  margin-top: 10px;
+}
+
 </style>
