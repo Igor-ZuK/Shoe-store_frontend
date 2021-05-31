@@ -18,7 +18,7 @@
         </div>
         <div class="row py-3">
           <div class="col text-center">
-            <Pagination :total="1" :item="9" />
+            <Pagination :total="1" :item="products.length" />
           </div>
         </div>
       </div>
@@ -41,17 +41,27 @@
     },
     data() {
       return {
-        products: []
+        products: [],
+        page: 1,
+        total: 0
       }
     },
     mounted() {
-      this.getProducts()
+      if (this.$route.href.indexOf('/article/') === 0) {
+        this.getProductArticle()
 
-      document.title = 'Products | The Loop'
+        document.title = 'Article | The Loop'
+      } else {
+        this.getProducts()
+
+        document.title = 'Products | The Loop'
+      }
     },
     methods: {
-      getProducts() {
-        axios
+      async getProducts() {
+        this.$store.commit('setIsLoading', true)
+
+        await axios
           .get('/api/v1/shoes')
           .then(response => {
             this.products = response.data
@@ -59,7 +69,26 @@
           .catch(error => {
             console.log(error)
           })
+
+        this.$store.commit('setIsLoading', false)
+      },
+      async getProductArticle() {
+        this.$store.commit('setIsLoading', true)
+
+        const articleUrl = this.$route.params.article_slug
+
+        await axios
+          .get(`/api/v1/shoes/article/${articleUrl}`)
+          .then(response => {
+            this.products = response.data
+          })
+          .catch(error => {
+            console.log(error)
+          })
+
+        this.$store.commit('setIsLoading', false)
       }
+
     }
   }
 </script>

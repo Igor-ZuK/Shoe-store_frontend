@@ -27,7 +27,6 @@
               <p class="mb-2 text-muted text-uppercase small">{{ product.fabricator }}</p>
               <Rating :rating_star="product.middle_star"/>
               <p><span class="mr-1"><strong>${{ product.price }}</strong></span></p>
-              <p class="pt-1">{{ product.description }}</p>
               <div class="table-responsive">
                 <table class="table table-sm table-borderless mb-0">
                   <tbody>
@@ -91,7 +90,7 @@
             </li>
           </ul>
           <div class="tab-content" id="advancedTabContent">
-            <div class="tab-pane fade" id="description" role="tabpanel"
+            <div class="tab-pane fade show active mb-5" id="description" role="tabpanel"
                  aria-labelledby="description-tab">
               <h5>Product Description</h5>
               <p class="small text-muted text-uppercase mb-2">{{ product.fabricator }} {{ product.title }}</p>
@@ -99,6 +98,8 @@
               <h6>${{ product.price }}</h6>
               <p class="pt-1">{{ product.description }}</p>
             </div>
+
+            <hr>
 
             <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
               <h5><span>{{ product.total_comments }}</span> review for <span>{{ product.title }}</span></h5>
@@ -113,7 +114,6 @@
                           <strong>{{ comment.author_name }} </strong>
                           <span>– </span><span>{{ getDate(comment.pub_date) }}</span>
                         </p>
-                        <Rating :rating_star="comment.rating_star"/>
                       </div>
                       <p class="mb-0">{{ comment.content }}</p>
                       <i class="fas fa-reply" @click="reviewComment(comment.author_name, comment.id)"></i>
@@ -127,23 +127,6 @@
                               <strong>{{ review.author_name }} </strong>
                               <span>– </span><span>{{ getDate(review.pub_date) }}</span>
                             </p>
-                            <ul class="rating mb-0">
-                              <li>
-                                <i class="fas fa-star fa-sm text-primary"></i>
-                              </li>
-                              <li>
-                                <i class="fas fa-star fa-sm text-primary"></i>
-                              </li>
-                              <li>
-                                <i class="fas fa-star fa-sm text-primary"></i>
-                              </li>
-                              <li>
-                                <i class="fas fa-star fa-sm text-primary"></i>
-                              </li>
-                              <li>
-                                <i class="far fa-star fa-sm text-primary"></i>
-                              </li>
-                            </ul>
                           </div>
                           <p class="mb-0">{{ review.content }}</p>
                         </div>
@@ -152,36 +135,15 @@
                   </div>
                 </template>
               <hr>
-              <h5 class="mt-4">Add a review</h5>
+              <h5 class="mt-4">Add a rating</h5>
               <div class="notification is-danger error-block" v-if="errors.length">
                 <p v-for="error in errors" :key="error">{{ error }}</p>
               </div>
               <div class="my-3">
-<!--                <div class="row">-->
-<!--                  <div class="col-md-6">-->
-<!--                    <star-rating v-model="rating" :increment="1" text-class="custom-text"></star-rating>-->
-<!--                  </div>-->
-<!--                </div>-->
-                <ul class="rating mb-0">
-                  <li v-for="(star, index) in 5" :key="index">
-                    <i class="fa-star fa-sm text-primary"
-                       @mouseover="isHover = true"
-                       @mouseleave="isHover = false"
-                       :class="{far: isHover, fas: !isHover}"></i>
-                  </li>
-<!--                  <li>-->
-<!--                    <a href="#">-->
-<!--                      <i class="fas fa-star fa-sm text-primary"></i>-->
-<!--                    </a>-->
-<!--                  </li>-->
-<!--                  <li>-->
-<!--                    <a href="#">-->
-<!--                      <i class="far fa-star fa-sm text-primary"></i>-->
-<!--                    </a>-->
-<!--                  </li>-->
-                </ul>
+                <AddRating :shoes_id="product.id" :user_rating="product.rating_user" />
               </div>
               <div>
+                <h5 class="mt-4">Add a review</h5>
                 <div class="md-form md-outline">
                   <textarea id="form76"
                             class="md-textarea form-control pr-6"
@@ -207,13 +169,13 @@
 import axios from "axios";
 import {toast} from 'bulma-toast'
 import Rating from "@/components/Rating";
-// import StarRating from 'vue-star-rating'
+import AddRating from "@/components/AddRating";
 
 export default {
   name: "ProductDetail",
   components: {
     Rating,
-
+    AddRating
   },
   data() {
     return {
@@ -273,6 +235,10 @@ export default {
     async sendReview() {
       this.errors = []
 
+      if (!this.$store.state.isAuthenticated) {
+        this.errors.push('Комментарии могут добавлять только аутентифицированные пользователи!')
+      }
+
       if (this.commentText === '') {
         this.errors.push('Ваш комментарий пуст!')
       }
@@ -284,6 +250,7 @@ export default {
           "shoes_id": this.product.id,
           "parent": this.parent
         }
+        console.log(data)
 
         this.$store.commit('setIsLoading', true)
         await axios.post('/api/v1/comment/', data)
@@ -338,6 +305,11 @@ main {
   font-weight: 500;
   font-size: 17px;
   margin-top: 10px;
+}
+
+.gold-star {
+  color: gold;
+  font-size: 20px;
 }
 
 </style>

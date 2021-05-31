@@ -4,9 +4,9 @@
         <header class="header">
             <nav>
                 <ul class="nav">
-                    <li class="nav-item"><a class="nav-link" href="">Для мужчин</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Для женщин</a></li>
-                    <li class="nav-item"><a class="nav-link" href="">Для детей</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/article/male">Для мужчин</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/article/female">Для женщин</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/article/child">Для детей</a></li>
                 </ul>
             </nav>
             <a href="/">
@@ -48,11 +48,11 @@
        @click="goTo('/my-account')"
        v-else>My <br>Account</p>
     <ul class="nav-list">
-        <li class="nav-list-item"><a href="" class="nav-link">Для мужчин</a></li>
-        <li class="nav-list-item"><a href="" class="nav-link">Для женщин</a></li>
-        <li class="nav-list-item"><a href="" class="nav-link">Для детей</a></li>
-        <li class="nav-list-item"><a href="" class="nav-link">Оплата</a></li>
-        <li class="nav-list-item"><a href="" class="nav-link">Доставка</a></li>
+        <li class="nav-list-item"><a href="/article/male" class="nav-link">Для мужчин</a></li>
+        <li class="nav-list-item"><a href="/article/female" class="nav-link">Для женщин</a></li>
+        <li class="nav-list-item"><a href="/article/child" class="nav-link">Для детей</a></li>
+        <li class="nav-list-item"><a href="/payment" class="nav-link">Оплата</a></li>
+        <li class="nav-list-item"><a href="/delivery" class="nav-link">Доставка</a></li>
     </ul>
 </div>
 </template>

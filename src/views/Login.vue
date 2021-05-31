@@ -43,6 +43,8 @@ export default {
         password: this.password
       }
 
+      console.log(formData)
+
       await axios
         .post("auth/token/login/", formData)
         .then(response => {

@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "Pagination",
-  props: ['total', 'page'],
+  props: ['total', 'item'],
   data() {
     return {
       currentPage: 1

@@ -30,13 +30,11 @@
         <div class="collection">
           <div class="collection-item collection-man">
             <h2 class="collection-title">Мужская коллекция</h2>
-            <p class="collection-description">Обувь, полуверы, костюмы</p>
-            <a href="" class="btn btn-xs"><img src="../assets/img/arrow.svg" alt="Arrow"></a>
+            <a href="/article/male" class="btn btn-xs"><img src="../assets/img/arrow.svg" alt="Arrow"></a>
           </div>
           <div class="collection-item collection-woman">
             <h2 class="collection-title">Женская коллекция</h2>
-            <p class="collection-description">Обувь, полуверы, костюмы</p>
-            <a href="" class="btn btn-xs"><img src="../assets/img/arrow.svg" alt="Arrow"></a>
+            <a href="/article/female" class="btn btn-xs"><img src="../assets/img/arrow.svg" alt="Arrow"></a>
           </div>
         </div>
       </div>

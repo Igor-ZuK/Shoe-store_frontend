@@ -18,24 +18,21 @@
             </ul>
             <ul class="footer-list">
               <li class="footer-list-item footer-list-title">Категории</li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Мужская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Женская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Детская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Дл животных</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/male">Мужская одежда</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/female">Женская одежда</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/child">Детская одежда</a></li>
             </ul>
             <ul class="footer-list">
               <li class="footer-list-item footer-list-title">Категории</li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Мужская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Женская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Детская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Дл животных</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/male">Мужская одежда</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/female">Женская одежда</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/child">Детская одежда</a></li>
             </ul>
             <ul class="footer-list">
               <li class="footer-list-item footer-list-title">Категории</li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Мужская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Женская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Детская одежда</a></li>
-              <li class="footer-list-item"><a class="footer-list-link" href="">Дл животных</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/male">Мужская одежда</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/female">Женская одежда</a></li>
+              <li class="footer-list-item"><a class="footer-list-link" href="/article/child">Детская одежда</a></li>
             </ul>
           </div>
         </footer>
