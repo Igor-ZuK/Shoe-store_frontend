@@ -14,9 +14,6 @@ export default {
   props: {
     product: Object
   },
-  mounted() {
-    console.log(this.product)
-  },
   methods: {
     goTo(product_url) {
         window.location.href = product_url

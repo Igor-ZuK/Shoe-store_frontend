@@ -89,7 +89,7 @@ export default {
       axios
       .get('/api/v1/')
       .then(response => {
-        this.latestProducts = response.data
+        this.latestProducts = response.data.results
       })
       .catch(error => {
         console.log(error)
