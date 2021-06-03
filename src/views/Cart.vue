@@ -81,7 +81,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped>
 .page-cart {
   padding: 2em;
   font-size: 16px;
