@@ -19,7 +19,9 @@
     "vue-dynamic-star-rating": "^1.0.8",
     "vue-router": "^4.0.0-0",
     "vue-star-rating": "^1.7.0",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "axios": "^0.21.1",
+    "vue-axios": "^3.2.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
