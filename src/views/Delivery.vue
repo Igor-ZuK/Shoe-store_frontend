@@ -32,7 +32,6 @@ export default {
 <style scoped>
   .delivery-page {
     width: 100%;
-    height: 370px;
     margin: 5% auto;
   }
 
