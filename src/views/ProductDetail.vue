@@ -50,7 +50,7 @@
                 <table class="table table-sm table-borderless">
                   <tbody>
                   <tr>
-                    <td class="pl-0 pb-0 w-25">Quantity</td>
+                    <td class="pl-0 pb-0 w-25">Кол-во</td>
                   </tr>
                   <tr>
                     <td class="pl-0">
@@ -70,29 +70,17 @@
                       class="btn btn-yellow-200 btn-md mr-1 mb-2"
                       @click="addToCart"
               ><i
-                class="fas fa-shopping-cart pr-2"></i>Add to
-                cart
+                class="fas fa-shopping-cart pr-2"></i>
+                Добавить
               </button>
             </div>
           </div>
         </section>
         <div class="classic-tabs">
-          <ul class="nav tabs-warning nav-justified" id="advancedTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active show" id="description-tab" data-toggle="tab" href="#description"
-                 role="tab"
-                 aria-controls="description" aria-selected="true">Description</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab"
-                 aria-controls="reviews"
-                 aria-selected="false">Reviews (1)</a>
-            </li>
-          </ul>
           <div class="tab-content" id="advancedTabContent">
             <div class="tab-pane fade show active mb-5" id="description" role="tabpanel"
                  aria-labelledby="description-tab">
-              <h5>Product Description</h5>
+              <h5>Описание:</h5>
               <p class="small text-muted text-uppercase mb-2">{{ product.fabricator }} {{ product.title }}</p>
               <Rating :rating_star="product.middle_star"/>
               <h6>${{ product.price }}</h6>
@@ -102,7 +90,7 @@
             <hr>
 
             <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-              <h5><span>{{ product.total_comments }}</span> review for <span>{{ product.title }}</span></h5>
+              <h5><span>{{ product.total_comments }}</span> комментариев для <span>{{ product.title }}</span></h5>
               <template v-if="product.total_comments">
                   <div class="media mt-3 mb-4" v-for="comment in comments" :key="comment.id">
                     <img class="d-flex mr-3 z-depth-1"
@@ -135,7 +123,7 @@
                   </div>
                 </template>
               <hr>
-              <h5 class="mt-4">Add a rating</h5>
+              <h5 class="mt-4">Добавить оценку</h5>
               <div class="notification is-danger error-block" v-if="errors.length">
                 <p v-for="error in errors" :key="error">{{ error }}</p>
               </div>
@@ -143,17 +131,17 @@
                 <AddRating :shoes_id="product.id" :user_rating="product.rating_user" />
               </div>
               <div>
-                <h5 class="mt-4">Add a review</h5>
+                <h5 class="mt-4">Добавить комментарий</h5>
                 <div class="md-form md-outline">
                   <textarea id="form76"
                             class="md-textarea form-control pr-6"
                             rows="4"
                             v-model="commentText"
-                            placeholder="Your review"
+                            placeholder="Ваш отзыв"
                   ></textarea>
                 </div>
                 <div class="text-right pb-2">
-                  <button type="button" class="btn btn-primary" @click="sendReview">Add a review</button>
+                  <button type="button" class="btn btn-primary" @click="sendReview">Добавить</button>
                 </div>
               </div>
             </div>
