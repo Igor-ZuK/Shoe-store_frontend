@@ -10,9 +10,9 @@
 
 <style scoped>
 @import "https://mdbootstrap.com/previews/ecommerce-demo/css/mdb-pro.min.css";
-@import "assets/css/mdb.ecommerce.min.css";
-@import "assets/css/bootstrap.min.css";
-@import "assets/css/style.css";
+@import "./assets/css/mdb.ecommerce.min.css";
+@import "./assets/css/bootstrap.min.css";
+@import "./assets/css/style.css";
 
 </style>
 
